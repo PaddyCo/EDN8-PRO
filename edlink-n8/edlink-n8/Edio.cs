@@ -208,17 +208,18 @@ namespace edlink_n8
 
         void openConnrction(string pname)
         {
-
             try
             {
                 port = new SerialPort(pname);
                 port.ReadTimeout = 300;
                 port.WriteTimeout = 300;
                 port.Open();
-                port.ReadExisting();
-                getStatus();
-                port.ReadTimeout = 2000;
-                port.WriteTimeout = 2000;
+                if (port.BytesToRead > 0) {
+                   port.ReadExisting();
+                   getStatus();
+                   port.ReadTimeout = 2000;
+                   port.WriteTimeout = 2000;
+                }
                 return;
             }
             catch (Exception) { }
